@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import config from "../config/index.js";
 
 export const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -6,7 +7,7 @@ export const authenticateJWT = (req, res, next) => {
     if (authHeader) {
         const token = authHeader.split(" ")[1];
 
-        jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+        jwt.verify(token, config.jwt.secretKey, (err, user) => {
             if (err) {
                 console.error('Error during token verification:', err);
                 return res.sendStatus(403);

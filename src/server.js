@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import loginRouter from "./routes/loginRoutes.js";
 import registerRouter from "./routes/registerRoutes.js";
 import profileRouter from "./routes/profileRoutes.js";
+import postRouter from "./routes/postRoutes.js";
 
 
 
@@ -25,7 +26,8 @@ server.use(cookieParser());
 /*---------- ENDPOINTS ----------*/
 server.use("/register", registerRouter);
 server.use("/login", loginRouter);
-server.use("profile", profileRouter)
+server.use("/profile", profileRouter)
+server.use("/post", postRouter);
 
 /*---------- ERRORHANDLERS ----------*/
 

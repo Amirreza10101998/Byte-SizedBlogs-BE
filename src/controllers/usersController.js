@@ -1,6 +1,7 @@
 import UsersModel from "../models/users.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import config from "../config/index.js";
 
 
 export const userRegister = async (req, res, next) => {
@@ -50,7 +51,7 @@ export const userLogin = async (req, res, next) => {
         }
 
 
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
+        const token = jwt.sign({ _id: user._id }, config.jwt.secretKey, {
             expiresIn: "7d",
         });
 

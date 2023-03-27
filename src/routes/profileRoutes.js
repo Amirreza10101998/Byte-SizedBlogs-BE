@@ -4,6 +4,6 @@ import { authenticateJWT } from "../middleware/authMiddleware.js"
 
 const profileRouter = express.Router();
 
-profileRouter.get("/", authenticateJWT, authenticateUser)
+profileRouter.get("/", authenticateJWT, authenticateUser);
 
 export default profileRouter;
