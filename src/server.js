@@ -4,8 +4,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import config from "./config/index.js";
 import cookieParser from "cookie-parser";
+
 import loginRouter from "./routes/loginRoutes.js";
 import registerRouter from "./routes/registerRoutes.js";
+import profileRouter from "./routes/profileRoutes.js";
 
 
 
@@ -23,7 +25,7 @@ server.use(cookieParser());
 /*---------- ENDPOINTS ----------*/
 server.use("/register", registerRouter);
 server.use("/login", loginRouter);
-
+server.use("profile", profileRouter)
 
 /*---------- ERRORHANDLERS ----------*/
 

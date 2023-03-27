@@ -2,7 +2,8 @@ import UsersModel from "../models/users.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const userRegister = async (req, res, ext) => {
+
+export const userRegister = async (req, res, next) => {
     try {
         // Hash the password
         const saltRounds = 10;
@@ -31,7 +32,7 @@ export const userRegister = async (req, res, ext) => {
     }
 }
 
-export const userLogin = async (req, res, ext) => {
+export const userLogin = async (req, res, next) => {
     try {
         const user = await UsersModel.findOne({ email: req.body.email });
 
@@ -64,6 +65,17 @@ export const userLogin = async (req, res, ext) => {
         res.status(200).json({ message: "Logged in successfully.", token: token });
 
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error." });
+    }
+}
+
+export const authenticateUser = async (req, res, next) => {
+    try {
+        const user = await UsersModel.findById(req.user._id).select("-password");
+
+        res.status(200).json({ message: "User profile retrieved successfully.", data: user });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error." });
