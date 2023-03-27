@@ -2,10 +2,10 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 import cors from "cors";
 import mongoose from "mongoose";
+import config from "./config/index.js";
 import cookieParser from "cookie-parser";
 
 const server = express();
-const port = process.env.PORT
 
 /*---------- MIDDLEWARES ----------*/
 server.use(cors({
@@ -20,12 +20,12 @@ server.use(cookieParser());
 
 /*---------- ERRORHANDLERS ----------*/
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(config.db.url);
 
 mongoose.connection.on("connected", () => {
     console.log("connected to mongoDB");
-    server.listen(port, () => {
+    server.listen(config.server.port, () => {
         console.table(listEndpoints(server));
-        console.log(`server is running on ${port}`);;
+        console.log(`server is running on ${config.server.port}`);;
     });
 });
