@@ -1,5 +1,7 @@
 import PostsModel from "../models/posts.js"
 import { check, validationResult } from 'express-validator';
+import { Types } from 'mongoose';
+
 
 export const listOfPosts = async (req, res, next) => {
     try {
@@ -36,7 +38,7 @@ export const createPost = async (req, res, next) => {
     const imageUrl = req.file ? req.file.path : null;
 
     try {
-        const newPost = new PostModel({
+        const newPost = new PostsModel({
             title,
             summary,
             content,
@@ -62,7 +64,7 @@ export const updatePost = async (req, res, next) => {
     const imageUrl = req.file ? req.file.path : null;
 
     try {
-        const post = await PostModel.findById(req.params.id);
+        const post = await PostsModel.findById(req.params.id);
 
         if (!post) {
             return next(createError(404, 'Post not found'));
