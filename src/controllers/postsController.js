@@ -1,7 +1,7 @@
 import PostsModel from "../models/posts.js"
 import { check, validationResult } from 'express-validator';
 
-export const listOfPosts = async () => {
+export const listOfPosts = async (req, res, next) => {
     try {
         const posts = await PostsModel.find().sort({ createdAt: -1 }).limit(20).populate('author', 'firstName lastName');
         res.json(posts);
@@ -11,7 +11,7 @@ export const listOfPosts = async () => {
     }
 }
 
-export const singlePost = async () => {
+export const singlePost = async (req, res, next) => {
     try {
         const post = await PostsModel.findById(req.params.id).populate('author', 'firstName lastName');
 
